@@ -1,14 +1,20 @@
 # requirements.txt
+
+# Core Framework & Server
 fastapi
 uvicorn[standard]
 python-multipart
 pydantic-settings
-pytest
-httpx
 
-# Added for Database
-sqlmodel
-
-# Added for Image Analysis
+# AI & Image Analysis
+ultralytics
 opencv-python
 numpy
+
+# Database & Location
+sqlmodel
+scipy
+
+# Testing
+pytest
+httpx
