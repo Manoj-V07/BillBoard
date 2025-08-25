@@ -1,0 +1,51 @@
+This project, the Billboard Analyzer, is a complete client-server system designed for automated, real-time compliance checking of billboards. It leverages a mobile application to capture data in the field and a powerful backend to perform an intelligent analysis using AI and geospatial rules.
+
+## System Architecture
+The project consists of two main components: a mobile frontend and a web backend.
+
+Android Frontend (The Client): A mobile application that acts as the data collection tool. Its primary role is to capture a photo of a billboard and the phone's current GPS coordinates. It then packages this information and sends it to the backend for analysis.
+
+Python Backend (The Server): A powerful API built with the FastAPI framework. This is the "brain" of the operation. It receives the image and location from the app, performs a sophisticated analysis, and returns a simple, clear result (authorized or not) back to the user's phone.
+
+
+Licensed by Google
+
+## Workflow
+
+The process from the user's perspective is designed to be simple and efficient:
+
+Capture: The user opens the app, which displays a live camera view. They point it at a billboard and tap a single button to "Capture & Analyze."
+
+Transmit: The app simultaneously takes a picture and records the phone's latitude and longitude. It sends this data to the backend API.
+
+Analyze: The backend server receives the data and initiates a two-part analysis pipeline.
+
+Respond: The server completes its analysis and sends a JSON response back to the app (e.g., {"is_authorized": false, "reason": "Location falls within a residential zone..."}).
+
+Display: The mobile app displays the result to the user in a clear, easy-to-understand format.
+
+## Core Backend Logic
+
+The backend's analysis engine is the most complex part of the project and what makes it intelligent.
+
+### AI-Powered Image Analysis
+
+The system does not rely on simple image matching. It uses YOLOv8, a state-of-the-art, pre-trained AI model, to perform object detection. The logic is designed to be robust:
+
+It first analyzes the image to determine if any significant objects are present.
+
+The system assumes that if the user has pointed their camera at a billboard, the AI will detect something (a car, a person, or the billboard structure itself).
+
+If the AI detects absolutely no objects, it concludes that the image is likely empty or invalid and reports that no billboard was found.
+
+### Dynamic Geospatial Authorization
+
+Authorization is not based on a static list of predefined locations. Instead, the system uses dynamic geospatial zoning rules, simulating how real city regulations work:
+
+The backend contains predefined geographical areas (polygons or bounding boxes) representing different zones, such as "Commercial" or "Residential."
+
+When it receives GPS coordinates, it checks which zone the location falls into.
+
+Authorization is granted or denied based on the rules for that specific zone (e.g., billboards are allowed in commercial zones but prohibited in residential zones).
+
+This combination of AI-driven visual confirmation and dynamic location-based rules makes the Billboard Analyzer a powerful and realistic tool for automated compliance verification.
