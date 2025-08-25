@@ -5,3 +5,10 @@ python-multipart
 pydantic-settings
 pytest
 httpx
+
+# Added for Database
+sqlmodel
+
+# Added for Image Analysis
+opencv-python
+numpy
